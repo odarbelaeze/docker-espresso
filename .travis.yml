@@ -10,7 +10,7 @@ env:
 
 script:
   - |
-    docker build . -t "$VERSION" \
+      docker build . -t "odarbelaeze/espresso:$VERSION" \
       --build-arg version=$VERSION \
 
 after_script:
