@@ -1,0 +1,14 @@
+language: bash
+services: docker
+
+env:
+  - VERSION=6.4 EXTRA_TAGS="-t latest"
+  - VERSION=6.3
+
+script:
+  - |
+    docker build . -t "$VERSION" "$EXTRA_TAGS" \
+      --build-arg version=$VERSION \
+
+after_script:
+  - docker images
