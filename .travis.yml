@@ -7,7 +7,7 @@ env:
 
 script:
   - |
-    docker build . -t "$VERSION" "$EXTRA_TAGS" \
+    docker build . -t "$VERSION" \
       --build-arg version=$VERSION \
 
 after_script:
