@@ -2,11 +2,15 @@ language: bash
 services: docker
 
 env:
-  - VERSION=6.4 EXTRA_TAGS="-t latest"
-  - VERSION=6.3
-  - VERSION=6.2.1
-  - VERSION=6.1.0
-  - VERSION=6.0.0
+  global:
+    - secure: "XNUbpBTEWHij4HshRpvzl3CpkQ86eDfabCwgdU64JMgFqwU3XZGnTFeDNZIVLN7m8AlbFPbup9PHQTwVHiIFKhtaJ4iMR00QKdR3rntgbI+aH/DRnXOa2v/9Xzt0K0csKVtC97orE9NTg1ietSO7mnuNkqJeAfmLBS+A2Wf5sjgSKKaAKjkAoazGRuh/HPVbvIF6MbOxOsOfwvb4fKOKxyoY/h3EXJ0TitmAQ1DFYJgou8P0IlvDwVn3AZShx1k8c7v9THVu82AOlZr4ezsJsZVXvWBr7Muhhv7f2MvgEp9vPr2RMueLCAU4rqW/m/QqLELIISmz05DgS2m+Pi4MTm6fMdlnC4uTUym6KpLsUqrYbb5H+zN+n0QfF4UWFRj1vD23fPy7scSTDGHxAHk+o8JkxonQc/PdX5EVZcAqtVuzMOPI6wXpbJC8QiGt66+1g7WiXrPpoE1i/0/d6d0drYXHC6yVjLQj3Z1f9fYheVNsLq2nih7nzrgU85NuuMWXEpLGCveshGbR9qJCcW22YH8d1gxmtOk2XE+Oqsi0F0Vukaq7yQn9PaJ7Fg0qq+EkWcdUjCFtFZ88hdI7xSy120J4h5FeTGqixZyUbBW648XRT6NaTekxpn2/9ChXB1Fe6waY/WG7A1e0hmLiFwji56UUZ6DFDmwOpd5EcsM7LtI="
+    - secure: "je0yknvgWgF1ZOvqIZSPWGlp8AGlbssOeA+MlFOoSKdn6Tm/el6EUktG5P5UTexhzFZK9ixDgmpxeQ/Es5kaJmsKIgsazCCywMmQkpisXSC7kwvqkJgxiMzOOkV8VkOUqLXi+5YQVYDu269iYmcCQPqv0+BkCvjJUyWC8W/APzTUkZC7YGYDk+Q9yJf+7pjT+YyP8MIOTIcwjp40ccFVd4CPRmb55M8/kEF5ibYKpVnGH5nYZtFqFoffrQ5d7gzo/tUhjZVJl/fIUfPlwUvLBVEJVekpmI/ZnNcJG1kTjSt8kgkXVCjstygUI62aWAgUx4ucxi5vA8gyhwLXIzo4g9/pBuItIAA+uRXw5vzpU5nLIZG1zC/sve6qsOgXSAJPP9MJbHtENIjaU4ZDrF7GcaAkM6s0QvUMKzKCNYKDLlmr/GJzX7GY+tCHLkGJSadymQ3fkbsZR1XkRVk+0HoFE3jXIMLi7HNYw7yqxeFU6YhPutj4V1UTEXH12EKoMGy3X9sGF5v8FbrhohzSzgSXxjaiL3ZNwL3v/pXxxc0Id7sqxIphYXZpeD5yk/FtPawRBnlUYH/EFg70AusHjKZvj4MJtbxg+6WMc5BaiTyftBPC/GvLUaP/a9sqUpx5Uk/NOmTUi8NGY0itZYiugjOgm8HE4FjBk+FY0LFZ1BBqRNw="
+  matrix:
+    - VERSION=6.4 EXTRA_TAGS="-t latest"
+    - VERSION=6.3
+    - VERSION=6.2.1
+    - VERSION=6.1.0
+    - VERSION=6.0.0
 
 script:
   - |
@@ -15,3 +19,11 @@ script:
 
 after_script:
   - docker images
+
+deploy:
+  provider: script
+  script: |
+    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+    docker push "odarbelaeze/espresso:$VERSION"
+  on:
+    branch: master
