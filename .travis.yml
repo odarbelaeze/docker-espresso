@@ -22,10 +22,6 @@ after_script:
 
 deploy:
   provider: script
-  script: |
-      bash <<EOF
-          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
-          docker push "odarbelaeze/espresso:$VERSION"
-      EOF
+  script: bash push.sh
   on:
       branch: master
