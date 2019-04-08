@@ -13,15 +13,7 @@ env:
     - VERSION=6.0.0
 
 script:
-  - |
-      docker build . -t "odarbelaeze/espresso:$VERSION" \
-      --build-arg version=$VERSION \
+  - ".hooks/build.sh"
 
 after_script:
   - docker images
-
-deploy:
-  provider: script
-  script: bash push.sh
-  on:
-      branch: master
