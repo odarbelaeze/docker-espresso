@@ -8,7 +8,7 @@ if [ "${SOURCE_BRANCH}" != "master" ]; then
     exit 0
 fi
 
-for tag in $(sudo docker images odarbelaeze/espresso --format "{{.Tag}}");
+for tag in $(docker images odarbelaeze/espresso --format "{{.Tag}}");
 do
     docker push "odarbelaeze/espresso:${tag}"
 done
