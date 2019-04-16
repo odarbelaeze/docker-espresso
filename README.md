@@ -9,7 +9,6 @@ on alpine linux, the system package manager would be `apk`.
 - `6.3`, `6.3-alpine`: Version 6.3 latest patch
 - `6.2`, `6.2-alpine`: Version 6.2.1 latest patch
 - `6.1`, `6.1-alpine`: Version 6.1.0 latest patch
-- `6.0`, `6.0-alpine`: Version 6.0.0 latest patch
 
 ## Usage
 
